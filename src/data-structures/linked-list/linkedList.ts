@@ -19,6 +19,7 @@ class LinkedList<NodeData = any> {
   public append(data: NodeData): LinkedList<NodeData> {
     if (this.head === null) {
       this.head = new LinkNode(data);
+      this.size += 1;
       return this;
     }
     let currentNode = this.head;
@@ -26,16 +27,19 @@ class LinkedList<NodeData = any> {
       currentNode = currentNode.next;
     }
     currentNode.next = new LinkNode(data);
+    this.size += 1;
     return this;
   }
   public prepend(data: NodeData): LinkedList<NodeData> {
     const newNode = new LinkNode(data);
     newNode.next = this.head;
     this.head = newNode;
+    this.size += 1;
     return this;
   }
   public clear(): LinkedList<NodeData> {
     this.head = null;
+    this.size = 0;
     return this;
   }
   public removeNode(data: NodeData): LinkedList<NodeData> {
@@ -45,6 +49,7 @@ class LinkedList<NodeData = any> {
     let currentNode = this.head;
     while (currentNode.next.next !== null) {
       if (isEqual(currentNode.next.data, data)) {
+        this.size -= 1;
         currentNode.next = currentNode.next.next;
       }
       currentNode = currentNode.next;
